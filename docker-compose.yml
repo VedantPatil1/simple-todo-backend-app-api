@@ -1,0 +1,44 @@
+version: "3.9"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - DEV=true
+    ports:
+      - "5050:5050"
+    volumes:
+      - ./src:/src
+    environment:
+      - FLASK_APP=app
+      - FLASK_RUN_HOST=0.0.0.0
+      - FLASK_RUN_PORT=5050
+      - FLASK_DEBUG=true
+      - SECRET_KEY="topsecretkey"
+      - MONGODB_DATABASE=tododb
+      - MONGODB_USERNAME=dev_user
+      - MONGODB_PASSWORD=dev_password
+      - MONGODB_HOSTNAME=mongodb
+      - MONGODB_PORT=27017
+
+    command: >
+      sh -c "flask run"
+    depends_on:
+      - mongodb
+  
+  mongodb:
+    image: mongo:7.0
+    container_name: simple_todo_app_db_server
+    command: mongod --auth
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: dev_user
+      MONGO_INITDB_ROOT_PASSWORD: dev_password
+      MONGO_INITDB_DATABASE: tododb
+      MONGODB_DATA_DIR: /data/db
+      MONDODB_LOG_DIR: /dev/null
+    volumes:
+      - mongodbdata:/data/db
+
+volumes:
+  mongodbdata:

@@ -1,0 +1,2 @@
+flask>= 2.2.0,<2.3
+flask-mongoengine>=1.0.0,<1.1
