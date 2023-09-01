@@ -1,4 +1,7 @@
-from app import db
+from flask_mongoengine import MongoEngine
+
+
+db = MongoEngine()
 
 
 class Task(db.Document):

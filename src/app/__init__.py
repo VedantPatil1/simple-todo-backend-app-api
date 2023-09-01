@@ -1,12 +1,9 @@
 import os
 import warnings
 from flask import Flask
-from flask_mongoengine import MongoEngine
 
 from app.config import Config
-
-
-db = MongoEngine()
+from app.models import db
 
 
 def create_app(test_config=None):
