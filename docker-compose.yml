@@ -20,7 +20,7 @@ services:
       - MONGODB_USERNAME=dev_user
       - MONGODB_PASSWORD=dev_password
       - MONGODB_HOSTNAME=mongodb
-      - MONGODB_PORT=27017
+      - MONGODB_PORT=1002
 
     command: >
       sh -c "flask run"
