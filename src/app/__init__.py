@@ -4,6 +4,7 @@ from flask import Flask
 
 from app.config import Config
 from app.models import db
+from app.routes import tasks_bp
 
 
 def create_app(test_config=None):
@@ -32,6 +33,10 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(test_config)
 
+    # Initializing db connection
     db.init_app(app)
+
+    # Blueprints
+    app.register_blueprint(tasks_bp, url_prefix='/api')
 
     return app

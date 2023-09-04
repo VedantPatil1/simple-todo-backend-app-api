@@ -44,7 +44,7 @@ def test_create_task(client, set_up):
         task = Task().save()
 
         assert task.id is not None
-        assert task.title == "Add Task Title"
+        assert task.title == "Add task title"
         assert task.description == "Add task description..."
         assert not task.completed
 
@@ -72,3 +72,13 @@ def test_delete_task(client, set_up):
         task.delete()
 
         assert len(Task.objects(id=task_id)) == 0
+
+
+def test_get_all_tasks(client, set_up):
+    with client.application.app_context():
+        Task(title="Task 1").save()
+        Task(title="Task 2").save()
+
+        task_list = Task.objects()
+
+        assert len(task_list) == 2
